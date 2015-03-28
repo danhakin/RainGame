@@ -1,7 +1,9 @@
 package com.devcraft.rain;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -69,6 +71,17 @@ public class Game extends Canvas implements Runnable{
 			createBufferStrategy(3); // Use 3 buffers to render
 			return;
 		}
+		
+		Graphics g = bs.getDrawGraphics();
+		// All drawing code goes here... 
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		// ... before call dispose()
+		
+		g.dispose();
+		
+		// Then we do Blitting = buffer swap.
+		bs.show();
 	}
 	
 	public static void main(String[] args) {
