@@ -2,6 +2,7 @@ package com.devcraft.rain;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
@@ -41,7 +42,32 @@ public class Game extends Canvas implements Runnable{
 	
 	public void run() {
 		while (running) {
-			System.out.println("Running...");
+			update();
+			render();
+		}
+	}
+	
+	/**
+	 * Do games calculations. Sometimes is also called tick()
+	 */
+	public void update() {
+		
+	}
+	
+	/**
+	 * Repaint all elements to screen
+	 */
+	public void render() {
+		/* 
+		  BufferStartegy allows to define a way (strategy) to calculate / normalize 
+		  the image/video we want to show in advance and update the screen 
+		  by switching buffers instead of repainting pixels one by one which will lead to
+		  graphics display problems due to machine/graphic card performance. 
+		*/
+		BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+			createBufferStrategy(3); // Use 3 buffers to render
+			return;
 		}
 	}
 	
