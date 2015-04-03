@@ -61,17 +61,32 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run() {
+		long lastTime = System.nanoTime();
+		//System.out.println("Last Time: " + lastTime);
+		final double ns = 1000000000.0 / 60.0;
+		//System.out.println("NS: " + ns);
+		double delta = 0;
 		while (running) {
-			update();
+			long now = System.nanoTime();
+			//System.out.println("now: " + now);
+			delta += (now - lastTime) / ns;
+			//System.out.println("Delta: " + delta);
+			lastTime = now;
+			//System.out.println("lastTime: " + lastTime);
+			while (delta >= 1) {
+				update();
+				delta--;
+			}
 			render();
 		}
+		stop();
 	}
 	
 	/**
 	 * Do games calculations. Sometimes is also called tick()
 	 */
 	public void update() {
-		
+		System.out.println("**** Update function");
 	}
 	
 	/**
