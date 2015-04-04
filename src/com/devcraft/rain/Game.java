@@ -66,6 +66,8 @@ public class Game extends Canvas implements Runnable{
 		final double ns = 1000000000.0 / 60.0;
 		//System.out.println("NS: " + ns);
 		double delta = 0;
+		int frames = 0;
+		int updates = 0;
 		while (running) {
 			long now = System.nanoTime();
 			//System.out.println("now: " + now);
@@ -75,9 +77,11 @@ public class Game extends Canvas implements Runnable{
 			//System.out.println("lastTime: " + lastTime);
 			while (delta >= 1) {
 				update();
+				updates++;
 				delta--;
 			}
 			render();
+			frames++;
 		}
 		stop();
 	}
