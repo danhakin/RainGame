@@ -1,5 +1,7 @@
 package com.devcraft.rain.graphics;
 
+import java.util.Random;
+
 public class Screen {
 	
 	private int width;
@@ -7,11 +9,19 @@ public class Screen {
 	private int height;
 	
 	public int[] pixels;
+	
+	public int[] tiles = new int[64 * 64];
+	
+	private Random random = new Random();
 		
 	public Screen(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.pixels = new int[width * height];
+		
+		for (int i = 0; i < tiles.length; i++) {
+			tiles[i] = random.nextInt(0xffffff);
+		}
 	}
 	
 	public void clear() {
@@ -22,8 +32,13 @@ public class Screen {
 	
 	public void render() {
 		for (int y = 0; y < height; y++) {
+			if (y < 0 || y >= height) break;
 			for (int x = 0; x < width; x++) {
-				pixels[x + y * width] = 0xFF00FF;
+				if (x < 0 || x >= width) break;
+				// int tileIndex = (x / 16) + (y / 16) * 64;
+				// Use bitwise operation to improve performance
+				int tileIndex = (x >> 4) + (y >> 4) * 64;
+				pixels[x + y * width] = tiles[tileIndex];
 			}
 		}
 	}
