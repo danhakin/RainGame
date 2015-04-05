@@ -20,6 +20,8 @@ public class Game extends Canvas implements Runnable{
 	public static int height = width / 16 * 9; // 16:9 ratio
 	public static int scale = 3;
 	
+	public static String title = "Rain"; 
+	
 	private Thread thread;
 	private JFrame frame;
 	private boolean running = false;
@@ -62,6 +64,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void run() {
 		long lastTime = System.nanoTime();
+		long timer = System.currentTimeMillis();
 		//System.out.println("Last Time: " + lastTime);
 		final double ns = 1000000000.0 / 60.0;
 		//System.out.println("NS: " + ns);
@@ -82,6 +85,14 @@ public class Game extends Canvas implements Runnable{
 			}
 			render();
 			frames++;
+			
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				//System.out.println(updates + " ups " + frames + " fps");
+				frame.setTitle(this.title + " | " + updates + " ups " + frames + " fps");
+				updates = 0;
+				frames = 0;
+			}
 		}
 		stop();
 	}
@@ -90,7 +101,7 @@ public class Game extends Canvas implements Runnable{
 	 * Do games calculations. Sometimes is also called tick()
 	 */
 	public void update() {
-		System.out.println("**** Update function");
+		//System.out.println("**** Update function");
 	}
 	
 	/**
@@ -130,7 +141,7 @@ public class Game extends Canvas implements Runnable{
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.frame.setResizable(false);
-		game.frame.setTitle("Rain");
+		game.frame.setTitle(game.title);
 		game.frame.add(game);
 		game.frame.pack();
 		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
