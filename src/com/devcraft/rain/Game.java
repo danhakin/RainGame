@@ -97,11 +97,15 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	
+	private int x = 0;
+	private int y = 0;
+	
 	/**
 	 * Do games calculations. Sometimes is also called tick()
 	 */
 	public void update() {
-		//System.out.println("**** Update function");
+		x++;
+		//y++;
 	}
 	
 	/**
@@ -121,7 +125,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		screen.clear();
-		screen.render();
+		screen.render(x, y);
 		
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
